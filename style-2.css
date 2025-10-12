@@ -1,73 +1,140 @@
-/* style-2.css */
+/* Styl 2: wyraźnie inny wygląd. Sidebar w centrum, layout 3‑kolumnowy, ciemniejszy motyw. */
+
+:root {
+  --bg: #0c1020;
+  --paper: #121836;
+  --paper-2: #0f1430;
+  --text: #e8edff;
+  --muted: #aab3d8;
+  --accent: #ff6b6b;
+  --accent-2: #4ae3b5;
+  --border: #1f2850;
+  --radius: 14px;
+  --shadow: 0 12px 30px rgba(0,0,0,.45);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 body {
-    font-family: 'Georgia', serif;
-    margin: 0;
-    padding: 0;
-    background-color: #ececec;
-    color: #444;
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+  background: radial-gradient(1200px 800px at 10% -10%, #1a2060 0%, transparent 70%),
+              radial-gradient(1200px 800px at 110% 10%, #202a70 0%, transparent 65%),
+              var(--bg);
+  color: var(--text);
+  line-height: 1.65;
 }
 
-header {
-    background-color: #ff6347;
-    color: white;
-    text-align: center;
-    padding: 25px 0;
+/* Layout 3 kolumny: [lewo] [sidebar] [prawo] */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 320px) 1fr;
+  grid-template-areas:
+    "header header header"
+    "nav    nav    nav"
+    "content sidebar extra"
+    "footer footer footer";
+  gap: 24px;
+  padding: 28px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-h1 {
-    margin: 0;
-    font-size: 3em;
+.site-header { grid-area: header; background: linear-gradient(135deg, #1e2658, #161d44); border: 1px solid var(--border); border-radius: 24px; padding: 36px; box-shadow: var(--shadow); }
+.site-header h1 { margin: 0 0 10px; letter-spacing: .3px; }
+.site-header .lead { margin: 0; color: var(--muted); }
+
+.site-nav { grid-area: nav; background: var(--paper-2); border: 1px solid var(--border); border-radius: 999px; padding: 10px; box-shadow: var(--shadow); position: sticky; top: 12px; z-index: 5; }
+.site-nav ul { list-style: none; display: flex; gap: 10px; margin: 0; padding: 0; justify-content: center; flex-wrap: wrap; }
+.site-nav a { color: var(--text); text-decoration: none; padding: 10px 14px; border-radius: 999px; background: transparent; border: 1px solid transparent; }
+.site-nav a:hover { background: #1a2150; border-color: #2a3477; }
+
+/* Centralny sidebar */
+.sidebar { grid-area: sidebar; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); transform: translateY(-8px); }
+.sidebar h2 { margin-top: 0; font-size: 1.1rem; }
+.sidebar ul { padding-left: 18px; }
+.sidebar a { color: var(--accent-2); text-decoration: none; }
+.sidebar a:hover { text-decoration: underline; }
+.sidebar .newsletter { display: grid; gap: 8px; margin-top: 12px; }
+.sidebar input[type=email] { padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: #0c122c; color: var(--text); }
+.sidebar button { padding: 10px 12px; border-radius: 10px; border: none; background: linear-gradient(135deg, var(--accent), #ff9a6b); color: #1a1420; font-weight: 600; cursor: pointer; }
+
+/* Lewa kolumna = główna treść; Prawa kolumna = panel extra */
+.content { grid-area: content; background: var(--paper-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow); }
+.content h2 { margin-top: 0; }
+/* W szerokim widoku treść w 2 kolumnach (inne wrażenie niż Styl 1) */
+@media (min-width: 1100px) {
+  .content { column-count: 2; column-gap: 36px; }
+  .content section { break-inside: avoid; }
 }
 
-h2 {
-    color: #ff6347;
-    font-size: 2.2em;
-}
+.extra { grid-area: extra; background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+.extra h2 { margin-top: 0; font-size: 1.05rem; }
 
-h3 {
-    font-size: 1.6em;
-    margin-top: 20px;
-    color: #444;
-}
+.site-footer { grid-area: footer; background: var(--paper-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-align: center; color: var(--muted); box-shadow: var(--shadow); }
 
-p {
-    font-size: 1.2em;
-    line-height: 1.7;
-}
-
-ul, ol {
-    margin-left: 20px;
-}
-
-footer {
-    background-color: #444;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-}
+/* Kolory akcentów i elementy treści */
+a { color: var(--accent); }
+a:hover { color: #ff8575; }
+mark { background: #2c315e; color: var(--text); padding: 0 6px; border-radius: 6px; }
 
 /* Responsywność */
-@media (max-width: 768px) {
-    header, footer {
-        padding: 15px 0;
-    }
-
-    h1 {
-        font-size: 2.5em;
-    }
-
-    h2 {
-        font-size: 1.8em;
-    }
-
-    h3 {
-        font-size: 1.4em;
-    }
-
-    p {
-        font-size: 1.1em;
-    }
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "nav"
+      "sidebar"  /* sidebar nad treścią, aby był w centrum uwagi */
+      "content"
+      "extra"
+      "footer";
+  }
+  .site-nav { border-radius: 18px; }
+  .content { column-count: initial; }
 }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f5f7ff;
+    --paper: #ffffff;
+    --paper-2: #f0f3ff;
+    --text: #0e1330;
+    --muted: #4d577a;
+    --accent: #c2185b;
+    --accent-2: #00796b;
+    --border: #d6dcff;
+    --shadow: 0 10px 26px rgba(33, 48, 127, .12);
+  }
+  body { background: radial-gradient(1200px 800px at -10% 10%, #dce3ff 0%, transparent 70%), var(--bg); }
+}
+
+/* Media i galeria dla kwiaciarni (Styl 2) */
+.site-header .hero {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  margin-top: 18px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+  margin-top: 14px;
+}
+.gallery figure {
+  margin: 0;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.gallery figure:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(0,0,0,.5); }
+.gallery img { display: block; width: 100%; height: 180px; object-fit: cover; }
+.gallery figcaption { padding: 12px 14px; font-size: .92rem; color: var(--muted); }
