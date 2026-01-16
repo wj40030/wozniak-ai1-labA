@@ -19,7 +19,7 @@ function applyStyle(styleKey: string): void {
 
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `./public/${style.file}`; 
+    link.href = `./${style.file}`;
     link.setAttribute('data-app-style', 'true');
     document.head.appendChild(link);
 
